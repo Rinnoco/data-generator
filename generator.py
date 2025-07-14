@@ -10,13 +10,13 @@ import uuid
 # JSON data with file links
 file_links = {
     "battery.csv": "https://zenodo.org/api/records/14751777/files/battery.csv/content",
-    "measurements_airquality.csv": "https://zenodo.org/api/records/14751777/files/measurements_airquality.csv/content",
-    "measurements_basic.csv": "https://zenodo.org/api/records/14751777/files/measurements_basic.csv/content",
-    "measurements_cut_processed.csv": "https://zenodo.org/api/records/14751777/files/measurements_cut_processed.csv/content",
-    "measurements_cut_ws.csv": "https://zenodo.org/api/records/14751777/files/measurements_cut_ws.csv/content",
-    "measurements_dust.csv": "https://zenodo.org/api/records/14751777/files/measurements_dust.csv/content",
-    "measurements_meteorology.csv": "https://zenodo.org/api/records/14751777/files/measurements_meteorology.csv/content",
-    "measurements_oil_detectors.csv": "https://zenodo.org/api/records/14751777/files/measurements_oil_detectors.csv/content"
+    # "measurements_airquality.csv": "https://zenodo.org/api/records/14751777/files/measurements_airquality.csv/content",
+    # "measurements_basic.csv": "https://zenodo.org/api/records/14751777/files/measurements_basic.csv/content",
+    # "measurements_cut_processed.csv": "https://zenodo.org/api/records/14751777/files/measurements_cut_processed.csv/content",
+    # "measurements_cut_ws.csv": "https://zenodo.org/api/records/14751777/files/measurements_cut_ws.csv/content",
+    # "measurements_dust.csv": "https://zenodo.org/api/records/14751777/files/measurements_dust.csv/content",
+    # "measurements_meteorology.csv": "https://zenodo.org/api/records/14751777/files/measurements_meteorology.csv/content",
+    # "measurements_oil_detectors.csv": "https://zenodo.org/api/records/14751777/files/measurements_oil_detectors.csv/content"
 }
 
 
@@ -24,7 +24,7 @@ def fetch_data_from_url(url: str) -> pd.DataFrame:
     """Fetch CSV content from URL and return as DataFrame."""
     response = requests.get(url)
     if response.status_code == 200:
-        return pd.read_csv(io.StringIO(response.text))  # Use io.StringIO instead of pd.compat.StringIO
+        return pd.read_csv(io.StringIO(response.text)).convert_dtypes(convert_integer=True)  # Use io.StringIO instead of pd.compat.StringIO
     else:
         print(f"Failed to fetch {url}, status code: {response.status_code}")
         return pd.DataFrame()
